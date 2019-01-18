@@ -12,7 +12,7 @@ const employees = [
   dateOfBirth: new Date('10/25/1988'),
   department: 'IT',
   isActive: true,
-  photoPath: 'assets/images/mark.png'
+  photoPath: 'mark.png'
 },
 {
   id: 2,
@@ -23,7 +23,7 @@ const employees = [
   dateOfBirth: new Date('11/20/1979'),
   department: 'HR',
   isActive: true,
-  photoPath: 'assets/images/mary.png'
+  photoPath: 'mary.png'
 },
 {
   id: 3,
@@ -34,7 +34,7 @@ const employees = [
   dateOfBirth: new Date('3/25/1976'),
   department: 'IT',
   isActive: false,
-  photoPath: 'assets/images/john.png'
+  photoPath: 'john.png'
 }]
 
 class App extends Component {
