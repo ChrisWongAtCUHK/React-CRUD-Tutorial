@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Moment from 'moment';
 
 function importAll(r) {
   let images = {};
@@ -7,7 +8,6 @@ function importAll(r) {
 }
 
 const images = importAll(require.context('../assets/images/', false, /\.(png|jpe?g|svg)$/));
-
 
 class ListEmployees extends Component {
   render() {
@@ -24,6 +24,36 @@ class ListEmployees extends Component {
                   <div className="col-xs-4">
                     <img className="imageClass" src={images[employee.photoPath]} />
                   </div>
+
+                  <div className="col-xs-8">
+                    <div className="row">
+                      <div className="col-xs-6">
+                        Gender
+                      </div>
+                      <div className="col-xs-6">
+                        : {employee.gender}
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-xs-6">
+                        Contact Preference
+                      </div>
+                      <div className="col-xs-6">
+                        : {employee.contactPreference}
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-xs-6">
+                        Date of Birth
+                      </div>
+                      <div className="col-xs-6">
+                        : {Moment(employee.dateOfBirth).format('MMM d, Y')}
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
