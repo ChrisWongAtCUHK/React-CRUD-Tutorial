@@ -52,6 +52,47 @@ class ListEmployees extends Component {
                         : {Moment(employee.dateOfBirth).format('MMM d, Y')}
                       </div>
                     </div>
+
+                    <div className="row">
+                      <div className="col-xs-6">
+                        Contact Preference
+                      </div>
+                      <div className="col-xs-6">
+                        : {employee.contactPreference}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-xs-6">
+                        Phone
+                      </div>
+                      <div className="col-xs-6">
+                        : {employee.phoneNumber}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-xs-6">
+                        Email
+                      </div>
+                      <div className="col-xs-6">
+                        : {employee.email}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-xs-6">
+                        Department
+                      </div>
+                      <div className="col-xs-6">
+                        : {employee.department}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-xs-6">
+                        Is Active
+                      </div>
+                      <div className="col-xs-6">
+                        : {employee.isActive.toString()}
+                      </div>
+                    </div>
                   </div>
 
                 </div>
