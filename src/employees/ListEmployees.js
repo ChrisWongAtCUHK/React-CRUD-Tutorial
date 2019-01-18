@@ -12,9 +12,9 @@ const images = importAll(require.context('../assets/images/', false, /\.(png|jpe
 class ListEmployees extends Component {
   render() {
     return (
-      <div className="panel panel-primary"  >
+      <div>
         {this.props.employees.map(employee =>(
-          <div key={employee.id}>
+          <div className="panel panel-primary" key={employee.id}>
             <div className="panel-heading">
               <h3 className="panel-title">{employee.name}</h3>
             </div>
