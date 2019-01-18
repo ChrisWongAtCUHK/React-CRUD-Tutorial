@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Moment from 'moment';
+import './ListEmployees.css';
 
 function importAll(r) {
   let images = {};
