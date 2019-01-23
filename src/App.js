@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+
 import './App.css';
 import ListEmployees from './employees/ListEmployees';
+import CreateEmployee from './employees/CreateEmployee';
 
 const employees = [
 {
@@ -40,9 +44,28 @@ const employees = [
 class App extends Component {
   render() {
     return (
-      <ListEmployees employees={employees}/>
+      <Router>
+        <div>
+          <Header />
+
+          <Route exact path="/" component={(props) => <ListEmployees {...props} employees={employees} />} />
+          <Route exact path="/create" component={CreateEmployee} />
+          <Route exact path="/list" component={(props) => <ListEmployees {...props} employees={employees} />} />
+        </div>
+      </Router>
     );
   }
 }
+
+const Header = () => (
+  <ul>
+    <li>
+      <Link to="/list">List</Link>
+    </li>
+    <li>
+      <Link to="/create">Create</Link>
+    </li>
+  </ul>
+);
 
 export default App;
