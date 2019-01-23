@@ -34,3 +34,14 @@ render(){
     return(<View> {Moment(dt).format('d MMM')} </View>) //basically you can do all sorts of the formatting and others
 }
 ```
+## [REACT TRAINING / REACT ROUTER]
+* [Quick Start](https://reacttraining.com/react-router/web/guides/quick-start)
+* [Route Matching](https://reacttraining.com/react-router/web/guides/basic-components/route-matching)
+
+## [Pass props to a component rendered by React Router](https://tylermcginnis.com/react-router-pass-props-to-components/)
+```ts
+<Route
+  path='/dashboard'
+  render={(props) => <Dashboard {...props} isAuthed={true} />}
+/>
+```
