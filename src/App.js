@@ -45,15 +45,17 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
-          <ul>
-            <li>
-              <Link to="/list">List</Link>
-            </li>
-            <li>
-              <Link to="/create">Create</Link>
-            </li>
-          </ul>
+        <div class="container">
+          <nav class="navbar navbar-default">
+            <ul class="nav navbar-nav">
+              <li>
+                <Link to="/list">List</Link>
+              </li>
+              <li>
+                <Link to="/create">Create</Link>
+              </li>
+            </ul>
+          </nav>
 
           <Switch>
             <Route exact path="/" component={(props) => <ListEmployees {...props} employees={employees} />} />
