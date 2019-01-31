@@ -45,9 +45,9 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div class="container">
-          <nav class="navbar navbar-default">
-            <ul class="nav navbar-nav">
+        <div className="container">
+          <nav className="navbar navbar-default">
+            <ul className="nav navbar-nav">
               <li>
                 <Link to="/list">List</Link>
               </li>
