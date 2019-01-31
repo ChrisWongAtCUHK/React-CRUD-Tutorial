@@ -10,23 +10,18 @@ class CreateEmployee extends Component {
             } 
         };
 
-        this.handleFullNameChange = this.handleFullNameChange.bind(this);
-        this.handleEmailChange    = this.handleEmailChange.bind(this);
-        this.handleSubmit         = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleFullNameChange(event) {
+    // handle the input change
+    handleChange(event) {
         let employee = this.state.employee;
-        employee.fullName = event.target.value;
-        this.setState({employee: employee});
-    }
-
-    handleEmailChange(event) {
-        let employee = this.state.employee;
-        employee.email = event.target.value;
+        employee[event.target.id] = event.target.value;
         this.setState({employee: employee});
     }
     
+    // handle form submit
     handleSubmit(event) {
         alert(JSON.stringify(this.state.employee));
         event.preventDefault();
@@ -44,13 +39,13 @@ class CreateEmployee extends Component {
                             <div className="form-group">
                                 <label htmlFor ="fullName">Full Name</label>
                                 <input id="fullName" type="text" className="form-control" name="fullName"
-                                    value={this.state.employee.fullName} onChange={this.handleFullNameChange}/>
+                                    value={this.state.employee.fullName} onChange={this.handleChange}/>
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="email">Email</label>
                                 <input id="email" type="text" className="form-control" name="email" 
-                                    value={this.state.employee.email} onChange={this.handleEmailChange}/>
+                                    value={this.state.employee.email} onChange={this.handleChange}/>
                             </div>
 
                             <div className="panel-footer">
