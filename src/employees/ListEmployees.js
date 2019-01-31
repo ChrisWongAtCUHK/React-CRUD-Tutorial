@@ -4,7 +4,9 @@ import './ListEmployees.css';
 
 function importAll(r) {
   let images = {};
-  r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+  for (var item of r.keys()) {
+    images[item.replace('./', '')] = r(item); 
+  }
   return images;
 }
 
@@ -23,7 +25,7 @@ class ListEmployees extends Component {
               <div className="col-xs-10">
                 <div className="row vertical-align">
                   <div className="col-xs-4">
-                    <img className="imageClass" src={images[employee.photoPath]} />
+                    <img className="imageClass" src={images[employee.photoPath]} alt=""/>
                   </div>
 
                   <div className="col-xs-8">
