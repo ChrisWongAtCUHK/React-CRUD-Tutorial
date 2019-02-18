@@ -79,6 +79,20 @@ class CreateEmployee extends Component {
                                 </div>
                             </div>
 
+                            <div className="form-group">
+                                <label>Gender</label>
+                                <div className="form-control">
+                                <label className="radio-inline">
+                                    <input type="radio" name="gender" value="male" onChange={this.handleRadioChange}/>
+                                    Male
+                                </label>
+                                <label className="radio-inline">
+                                    <input type="radio" name="gender" value="female" onChange={this.handleRadioChange}/>
+                                    Female
+                                </label>
+                                </div>
+                            </div>
+
                             <div className="panel-footer">
                                 <button className="btn btn-primary" type="submit">Save</button>
                             </div>
