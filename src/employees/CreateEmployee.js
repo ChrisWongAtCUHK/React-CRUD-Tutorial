@@ -6,7 +6,8 @@ class CreateEmployee extends Component {
         this.state = { employee: 
             { 
                 fullName: '',
-                email: ''
+                email: '',
+                phoneNumber:''
             } 
         };
 
@@ -46,6 +47,12 @@ class CreateEmployee extends Component {
                                 <label htmlFor="email">Email</label>
                                 <input id="email" type="text" className="form-control" name="email" 
                                     value={this.state.employee.email} onChange={this.handleChange}/>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="phoneNumber">Phone Number</label>
+                                <input id="phoneNumber" type="text" className="form-control" name="phoneNumber" 
+                                    value={this.state.employee.phoneNumber} onChange={this.handleChange}/>
                             </div>
 
                             <div className="panel-footer">
