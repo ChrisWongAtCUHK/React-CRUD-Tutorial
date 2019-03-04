@@ -13,8 +13,9 @@ class CreateEmployee extends Component {
             } 
         };
 
-        this.handleRadioChange = this.handleRadioChange.bind(this);
-        this.handleSubmit      = this.handleSubmit.bind(this);
+        this.handleRadioChange    = this.handleRadioChange.bind(this);
+        this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+        this.handleSubmit         = this.handleSubmit.bind(this);
     }
 
     // handle the input change
@@ -28,6 +29,13 @@ class CreateEmployee extends Component {
     handleRadioChange(event) {
         let employee = this.state.employee;
         employee[event.target.name] = event.target.value;
+        this.setState({employee: employee});
+    }
+
+    // handle the checkbox change
+    handleCheckboxChange(event) {
+        let employee = this.state.employee;
+        employee[event.target.name] = event.target.checked;
         this.setState({employee: employee});
     }
     
@@ -88,6 +96,14 @@ class CreateEmployee extends Component {
                                 <label className="radio-inline">
                                     <input type="radio" name="gender" value="female" onChange={this.handleRadioChange}/>
                                     Female
+                                </label>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <div className="form-control">
+                                <label className="checkbox-inline">
+                                    <input type="checkbox" name="isActive" onChange={this.handleCheckboxChange}/>Is Active
                                 </label>
                                 </div>
                             </div>
