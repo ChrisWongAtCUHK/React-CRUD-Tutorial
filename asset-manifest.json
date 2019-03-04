@@ -1,7 +1,7 @@
 {
   "main.css": "/React-CRUD-Tutorial/static/css/main.fd08bc82.chunk.css",
-  "main.js": "/React-CRUD-Tutorial/static/js/main.8106b6d5.chunk.js",
-  "main.js.map": "/React-CRUD-Tutorial/static/js/main.8106b6d5.chunk.js.map",
+  "main.js": "/React-CRUD-Tutorial/static/js/main.a4645ab3.chunk.js",
+  "main.js.map": "/React-CRUD-Tutorial/static/js/main.a4645ab3.chunk.js.map",
   "static/js/1.9b45b41e.chunk.js": "/React-CRUD-Tutorial/static/js/1.9b45b41e.chunk.js",
   "static/js/1.9b45b41e.chunk.js.map": "/React-CRUD-Tutorial/static/js/1.9b45b41e.chunk.js.map",
   "runtime~main.js": "/React-CRUD-Tutorial/static/js/runtime~main.de416623.js",
@@ -11,6 +11,6 @@
   "static/media/mary.png": "/React-CRUD-Tutorial/static/media/mary.6a8df8e0.png",
   "static/css/main.fd08bc82.chunk.css.map": "/React-CRUD-Tutorial/static/css/main.fd08bc82.chunk.css.map",
   "index.html": "/React-CRUD-Tutorial/index.html",
-  "precache-manifest.58380410c8bb71f92b991ee344ee45bc.js": "/React-CRUD-Tutorial/precache-manifest.58380410c8bb71f92b991ee344ee45bc.js",
+  "precache-manifest.4c23738c417bd2e943db12eb85bc0251.js": "/React-CRUD-Tutorial/precache-manifest.4c23738c417bd2e943db12eb85bc0251.js",
   "service-worker.js": "/React-CRUD-Tutorial/service-worker.js"
 }
