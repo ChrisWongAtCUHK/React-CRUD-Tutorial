@@ -23,7 +23,7 @@ class ListEmployees extends Component {
               <div className="col-xs-10">
                 <div className="row vertical-align">
                   <div className="col-xs-4">
-                    <img className="imageClass" src={images[employee.photoPath]} />
+                    <img className="imageClass" src={images[employee.photoPath]} alt=""/>
                   </div>
 
                   <div className="col-xs-8">
@@ -38,19 +38,10 @@ class ListEmployees extends Component {
 
                     <div className="row">
                       <div className="col-xs-6">
-                        Contact Preference
-                      </div>
-                      <div className="col-xs-6">
-                        : {employee.contactPreference}
-                      </div>
-                    </div>
-
-                    <div className="row">
-                      <div className="col-xs-6">
                         Date of Birth
                       </div>
                       <div className="col-xs-6">
-                        : {Moment(employee.dateOfBirth).format('MMM d, Y')}
+                        : {Moment(employee.dateOfBirth).format('ll')}
                       </div>
                     </div>
 
