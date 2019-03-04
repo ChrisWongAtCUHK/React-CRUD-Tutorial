@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "1c9b9351d4a23d377cad",
+    "revision": "983044c9b9af0ff02559",
     "url": "/React-CRUD-Tutorial/static/css/main.63191782.chunk.css"
   },
   {
-    "revision": "1c9b9351d4a23d377cad",
-    "url": "/React-CRUD-Tutorial/static/js/main.1c9b9351.chunk.js"
+    "revision": "983044c9b9af0ff02559",
+    "url": "/React-CRUD-Tutorial/static/js/main.983044c9.chunk.js"
   },
   {
     "revision": "d744715341da665f87d7",
@@ -28,7 +28,7 @@ self.__precacheManifest = [
     "url": "/React-CRUD-Tutorial/static/media/mary.6a8df8e0.png"
   },
   {
-    "revision": "54e8efee093f8b16c08ecebed491f0d0",
+    "revision": "c09b4d3da20a3a348f6cf54dab43dcd1",
     "url": "/React-CRUD-Tutorial/index.html"
   }
 ];
