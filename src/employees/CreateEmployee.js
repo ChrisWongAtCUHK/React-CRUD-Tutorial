@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class CreateEmployee extends Component {
     constructor(props) {
         super(props);
+    
         this.state = { employee: 
             { 
                 fullName: '',
@@ -54,6 +55,12 @@ class CreateEmployee extends Component {
     }
 
     render() {
+        let departments = [
+            { id: 1, name: 'Help Desk' },
+            { id: 2, name: 'HR' },
+            { id: 3, name: 'IT' },
+            { id: 4, name: 'Payroll' }
+        ];
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -119,10 +126,9 @@ class CreateEmployee extends Component {
                             <div class="form-group">
                                 <label for="department">Department</label>
                                     <select id="department" name="department" class="form-control" onChange={this.handleSelectChange}>
-                                        <option value="1">Help Desk</option>
-                                        <option value="2">HR</option>
-                                        <option value="3">IT</option>
-                                        <option value="4">Paroll</option>
+                                        {departments.map(department =>(
+                                            <option value="{department.id}">{department.name}</option>
+                                        ))}
                                     </select>
                             </div>
 
