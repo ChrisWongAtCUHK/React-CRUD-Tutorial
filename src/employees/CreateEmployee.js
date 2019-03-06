@@ -15,6 +15,7 @@ class CreateEmployee extends Component {
 
         this.handleRadioChange    = this.handleRadioChange.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+        this.handleSelectChange   = this.handleSelectChange.bind(this);
         this.handleSubmit         = this.handleSubmit.bind(this);
     }
 
@@ -36,6 +37,13 @@ class CreateEmployee extends Component {
     handleCheckboxChange(event) {
         let employee = this.state.employee;
         employee[event.target.name] = event.target.checked;
+        this.setState({employee: employee});
+    }
+
+    // handle the select change
+    handleSelectChange(event) {
+        let employee = this.state.employee;
+        employee[event.target.name] = event.target.value;
         this.setState({employee: employee});
     }
     
@@ -106,6 +114,16 @@ class CreateEmployee extends Component {
                                     <input type="checkbox" name="isActive" onChange={this.handleCheckboxChange}/>Is Active
                                 </label>
                                 </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="department">Department</label>
+                                    <select id="department" name="department" class="form-control" onChange={this.handleSelectChange}>
+                                        <option value="1">Help Desk</option>
+                                        <option value="2">HR</option>
+                                        <option value="3">IT</option>
+                                        <option value="4">Paroll</option>
+                                    </select>
                             </div>
 
                             <div className="panel-footer">
