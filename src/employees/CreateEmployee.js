@@ -2,6 +2,17 @@ import React, { Component } from 'react';
 import DatePicker from "react-datepicker";
  
 import "react-datepicker/dist/react-datepicker.css";
+
+function importAll(r) {
+    let images = {};
+    for (var item of r.keys()) {
+      images[item.replace('./', '')] = r(item); 
+    }
+    return images;
+  }
+  
+const images = importAll(require.context('../assets/images/', false, /\.(png|jpe?g|svg)$/));
+
 class CreateEmployee extends Component {
     constructor(props) {
         super(props);
@@ -13,7 +24,8 @@ class CreateEmployee extends Component {
                 phoneNumber:'',
                 contactPreference: '',
                 gender: '',
-                dateOfBirth: new Date()
+                dateOfBirth: new Date(),
+                photoPath: ''
             }
         };
 
@@ -21,6 +33,7 @@ class CreateEmployee extends Component {
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleSelectChange   = this.handleSelectChange.bind(this);
         this.handleDateChange     = this.handleDateChange.bind(this);
+        this.handlePhotoChange    = this.handlePhotoChange.bind(this);
         this.handleSubmit         = this.handleSubmit.bind(this);
     }
 
@@ -52,9 +65,16 @@ class CreateEmployee extends Component {
         this.setState({employee: employee});
     }
     
+    // handle the change of date of birth
     handleDateChange(date) {
         let employee = this.state.employee;
         employee.dateOfBirth = date;
+        this.setState({employee: employee});
+    }
+
+    handlePhotoChange(event) {
+        let employee = this.state.employee;
+        employee.photoPath = event.target.value;
         this.setState({employee: employee});
     }
 
@@ -151,11 +171,12 @@ class CreateEmployee extends Component {
                             <div className="form-group">
                                 <label htmlFor="photoPath">Photo Path</label>
                                 <input id="photoPath" type="text" className="form-control"
-                                    name="photoPath" />
+                                    name="photoPath" onChange={this.handlePhotoChange} />
                             </div>
 
                             <div className="form-group">
-                                <img src="" height="200" width="200" alt=""/>
+                                {/* static/media/mark.7d951de6.png */}
+                                <img src={this.state.employee.photoPath} height="200" width="200" alt=""/>
                             </div>
 
                             <div className="panel-footer">
