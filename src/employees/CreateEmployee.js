@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
-
+import DatePicker from "react-datepicker";
+ 
+import "react-datepicker/dist/react-datepicker.css";
 class CreateEmployee extends Component {
     constructor(props) {
         super(props);
     
-        this.state = { employee: 
-            { 
+        this.state = { 
+            employee: { 
                 fullName: '',
                 email: '',
                 phoneNumber:'',
                 contactPreference: '',
-                gender: ''
-            } 
+                gender: '',
+                dateOfBirth: new Date()
+            }
         };
 
         this.handleRadioChange    = this.handleRadioChange.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleSelectChange   = this.handleSelectChange.bind(this);
+        this.handleDateChange     = this.handleDateChange.bind(this);
         this.handleSubmit         = this.handleSubmit.bind(this);
     }
 
@@ -48,6 +52,12 @@ class CreateEmployee extends Component {
         this.setState({employee: employee});
     }
     
+    handleDateChange(date) {
+        let employee = this.state.employee;
+        employee.dateOfBirth = date;
+        this.setState({employee: employee});
+    }
+
     // handle form submit
     handleSubmit(event) {
         alert(JSON.stringify(this.state.employee));
@@ -123,13 +133,19 @@ class CreateEmployee extends Component {
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div className="form-group">
                                 <label for="department">Department</label>
-                                    <select id="department" name="department" class="form-control" onChange={this.handleSelectChange}>
+                                    <select id="department" name="department" className="form-control" onChange={this.handleSelectChange}>
                                         {departments.map(department =>(
-                                            <option value="{department.id}">{department.name}</option>
+                                            <option value="{department.id}">{department.name}   </option>
                                         ))}
                                     </select>
+                            </div>
+
+                            <div className="form-group">
+                                <label for="dateOfBirth">Date of Birth</label>
+                                <DatePicker className="form-control" 
+                                    id="dateOfBirth" name="dateOfBirth" selected={this.state.employee.dateOfBirth} onChange={this.handleDateChange} />
                             </div>
 
                             <div className="panel-footer">
