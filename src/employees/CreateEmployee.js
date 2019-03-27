@@ -134,18 +134,28 @@ class CreateEmployee extends Component {
                             </div>
 
                             <div className="form-group">
-                                <label for="department">Department</label>
+                                <label htmlFor="department">Department</label>
                                     <select id="department" name="department" className="form-control" onChange={this.handleSelectChange}>
                                         {departments.map(department =>(
-                                            <option value="{department.id}">{department.name}   </option>
+                                            <option value={department.id} key={department.id} >{department.name}</option>
                                         ))}
                                     </select>
                             </div>
 
                             <div className="form-group">
-                                <label for="dateOfBirth">Date of Birth</label>
+                                <label htmlFor="dateOfBirth">Date of Birth</label>
                                 <DatePicker className="form-control" 
                                     id="dateOfBirth" name="dateOfBirth" selected={this.state.employee.dateOfBirth} onChange={this.handleDateChange} />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="photoPath">Photo Path</label>
+                                <input id="photoPath" type="text" className="form-control"
+                                    name="photoPath" />
+                            </div>
+
+                            <div className="form-group">
+                                <img src="" height="200" width="200" alt=""/>
                             </div>
 
                             <div className="panel-footer">
