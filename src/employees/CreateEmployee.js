@@ -29,6 +29,7 @@ class CreateEmployee extends Component {
             }
         };
 
+        this.handleChange         = this.handleChange.bind(this);
         this.handleRadioChange    = this.handleRadioChange.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleSelectChange   = this.handleSelectChange.bind(this);
@@ -74,7 +75,7 @@ class CreateEmployee extends Component {
 
     handlePhotoChange(event) {
         let employee = this.state.employee;
-        employee.photoPath = event.target.value;
+        employee.photoPath = images[event.target.value];
         this.setState({employee: employee});
     }
 
@@ -175,7 +176,7 @@ class CreateEmployee extends Component {
                             </div>
 
                             <div className="form-group">
-                                {/* static/media/mark.7d951de6.png */}
+                                {/* this path is from the list page, static/media/mark.7d951de6.png */}
                                 <img src={this.state.employee.photoPath} height="200" width="200" alt=""/>
                             </div>
 
