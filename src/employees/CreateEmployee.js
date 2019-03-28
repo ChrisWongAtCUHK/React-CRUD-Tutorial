@@ -26,7 +26,8 @@ class CreateEmployee extends Component {
                 gender: '',
                 dateOfBirth: new Date(),
                 photoPath: ''
-            }
+            },
+            previewPhoto: false
         };
 
         this.handleChange         = this.handleChange.bind(this);
@@ -36,6 +37,7 @@ class CreateEmployee extends Component {
         this.handleDateChange     = this.handleDateChange.bind(this);
         this.handlePhotoChange    = this.handlePhotoChange.bind(this);
         this.handleSubmit         = this.handleSubmit.bind(this);
+        this.handlePhotoToggle    = this.handlePhotoToggle.bind(this);
     }
 
     // handle the input change
@@ -73,11 +75,19 @@ class CreateEmployee extends Component {
         this.setState({employee: employee});
     }
 
+    // handle the photo change
     handlePhotoChange(event) {
         let employee = this.state.employee;
         employee.photoPath = images[event.target.value];
         this.setState({employee: employee});
     }
+
+    // handle the photo toogle
+    handlePhotoToggle() {
+        this.setState(prevState => ({
+          previewPhoto: !prevState.previewPhoto
+        }));
+      }
 
     // handle form submit
     handleSubmit(event) {
@@ -176,8 +186,15 @@ class CreateEmployee extends Component {
                             </div>
 
                             <div className="form-group">
-                                {/* this path is from the list page, static/media/mark.7d951de6.png */}
-                                <img src={this.state.employee.photoPath} height="200" width="200" alt=""/>
+                                {/* this path is from the list page, static/media/ */}
+                                { this.state.previewPhoto ? <img src={this.state.employee.photoPath} height="200" width="200" alt=""/> : null }
+                            </div>
+
+                            <div className="form-group">
+                                <button type="button" className="btn btn-primary" 
+                                    onClick={this.handlePhotoToggle}>
+                                Show Preview
+                                </button>
                             </div>
 
                             <div className="panel-footer">
