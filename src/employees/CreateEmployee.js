@@ -245,7 +245,7 @@ class CreateEmployee extends Component {
                             </div>
 
                             <div className="panel-footer">
-                                <button className="btn btn-primary" type="submit">Save</button>
+                                <button className="btn btn-primary" type="submit" disabled={!this.state.fullNameControl.hasSuccess}>Save</button>
                             </div>
                         </div>
                     </div>
