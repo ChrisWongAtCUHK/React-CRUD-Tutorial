@@ -35,6 +35,7 @@ class CreateEmployee extends Component {
             emailControl: {
                 hasError: false,
                 hasSuccess: false,
+                invalid: false
             },
         };
 
@@ -107,17 +108,37 @@ class CreateEmployee extends Component {
 
     // handle validation
     validate(event){
+        let hasError = false;
+        // required
         if(event.target.required) {
             if(event.target.value === null || event.target.value.trim().length === 0){
                 this.setState({[`${event.target.id}Control`]: {
                     hasError: true,
                     hasSuccess: false
                 }});
+                hasError = true;
             } else {
                 this.setState({[`${event.target.id}Control`]: {
                     hasError: false,
                     hasSuccess: true
                 }});
+            }
+        }
+
+        // pattern match test
+        if(event.target.pattern){
+            if(RegExp(event.target.pattern).test(event.target.value)){
+                // do nothing
+            } else {
+                if(!hasError){
+                    // invalid pattern
+                    let control = `${event.target.id}Control`;
+                    this.setState(prevState => ({[control]: {
+                        invalid: true,
+                        hasError: true,
+                        hasSuccess: prevState.hasSuccess
+                    }}));
+                }
             }
         }
     }
@@ -157,6 +178,7 @@ class CreateEmployee extends Component {
                                 + (this.state.emailControl.hasSuccess ? "has-success" : "")}>
                                 <label htmlFor="email">Email</label>
                                 <input id="email" type="text" className="form-control" name="email" required
+                                    pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
                                     value={this.state.employee.email} 
                                     onChange={this.handleChange}
                                     onBlur={this.validate}/>
@@ -165,6 +187,11 @@ class CreateEmployee extends Component {
                                             Email is required
                                         </span>
                                         : null }
+                                    { this.state.emailControl.invalid ? 
+                                        <span className="help-block">
+                                            Email is invalid
+                                        </span>
+                                        : null }    
                             </div>
 
                             <div className="form-group">
