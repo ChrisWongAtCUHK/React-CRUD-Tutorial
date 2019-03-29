@@ -1,10 +1,10 @@
 {
   "main.css": "/React-CRUD-Tutorial/static/css/main.290717fa.chunk.css",
-  "main.js": "/React-CRUD-Tutorial/static/js/main.97d730f7.chunk.js",
-  "main.js.map": "/React-CRUD-Tutorial/static/js/main.97d730f7.chunk.js.map",
+  "main.js": "/React-CRUD-Tutorial/static/js/main.b4fc3c24.chunk.js",
+  "main.js.map": "/React-CRUD-Tutorial/static/js/main.b4fc3c24.chunk.js.map",
   "static/css/1.a49e53cc.chunk.css": "/React-CRUD-Tutorial/static/css/1.a49e53cc.chunk.css",
-  "static/js/1.3e12512e.chunk.js": "/React-CRUD-Tutorial/static/js/1.3e12512e.chunk.js",
-  "static/js/1.3e12512e.chunk.js.map": "/React-CRUD-Tutorial/static/js/1.3e12512e.chunk.js.map",
+  "static/js/1.8038e36a.chunk.js": "/React-CRUD-Tutorial/static/js/1.8038e36a.chunk.js",
+  "static/js/1.8038e36a.chunk.js.map": "/React-CRUD-Tutorial/static/js/1.8038e36a.chunk.js.map",
   "runtime~main.js": "/React-CRUD-Tutorial/static/js/runtime~main.de416623.js",
   "runtime~main.js.map": "/React-CRUD-Tutorial/static/js/runtime~main.de416623.js.map",
   "static/media/john.png": "/React-CRUD-Tutorial/static/media/john.2d9f64bb.png",
@@ -13,6 +13,6 @@
   "static/css/1.a49e53cc.chunk.css.map": "/React-CRUD-Tutorial/static/css/1.a49e53cc.chunk.css.map",
   "static/css/main.290717fa.chunk.css.map": "/React-CRUD-Tutorial/static/css/main.290717fa.chunk.css.map",
   "index.html": "/React-CRUD-Tutorial/index.html",
-  "precache-manifest.89ff18fffd222f4fb98a9ce617708992.js": "/React-CRUD-Tutorial/precache-manifest.89ff18fffd222f4fb98a9ce617708992.js",
+  "precache-manifest.5c6d805a3d5c9207a0fe6bfd64d17f12.js": "/React-CRUD-Tutorial/precache-manifest.5c6d805a3d5c9207a0fe6bfd64d17f12.js",
   "service-worker.js": "/React-CRUD-Tutorial/service-worker.js"
 }
