@@ -52,9 +52,10 @@ class CreateEmployee extends Component {
         let employee = this.state.employee;
         employee[event.target.id] = event.target.value;
         this.setState({employee: employee});
+        console.log(event.target.value);
         if(event.target.value === null || event.target.value.trim().length === 0){
             this.setState({fullNameControl: {
-                hasError: false,
+                hasError: true,
                 hasSuccess: false
             }});
         } else {
@@ -154,8 +155,10 @@ class CreateEmployee extends Component {
                                 + (this.state.fullNameControl.hasError ? "has-error" : "") 
                                 + (this.state.fullNameControl.hasSuccess ? "has-success" : "")}>
                                 <label htmlFor ="fullName">Full Name</label>
-                                <input id="fullName" type="text" className="form-control" name="fullName"
-                                    value={this.state.employee.fullName} onChange={this.handleFullNameChange} required onBlur={this.handlefullNameControl}/>
+                                <input id="fullName" type="text" className="form-control" name="fullName" required
+                                    value={this.state.employee.fullName} 
+                                    onChange={this.handleFullNameChange} 
+                                    onBlur={this.handlefullNameControl}/>
                                     { this.state.fullNameControl.hasError ? 
                                         <span className="help-block">
                                             Full Name is required
@@ -165,7 +168,7 @@ class CreateEmployee extends Component {
 
                             <div className="form-group">
                                 <label htmlFor="email">Email</label>
-                                <input id="email" type="text" className="form-control" name="email" 
+                                <input id="email" type="text" className="form-control" name="email" required
                                     value={this.state.employee.email} onChange={this.handleChange}/>
                             </div>
 
