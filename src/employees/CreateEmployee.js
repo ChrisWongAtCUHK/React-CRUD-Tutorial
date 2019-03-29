@@ -35,7 +35,6 @@ class CreateEmployee extends Component {
 
         };
 
-        this.handleFullNameChange  = this.handleFullNameChange.bind(this);
         this.handleChange          = this.handleChange.bind(this);
         this.handleRadioChange     = this.handleRadioChange.bind(this);
         this.handleCheckboxChange  = this.handleCheckboxChange.bind(this);
@@ -44,26 +43,7 @@ class CreateEmployee extends Component {
         this.handlePhotoChange     = this.handlePhotoChange.bind(this);
         this.handlePhotoToggle     = this.handlePhotoToggle.bind(this);
         this.handleSubmit          = this.handleSubmit.bind(this);
-        this.handlefullNameControl = this.handlefullNameControl.bind(this);
-    }
-
-    // handle the full name change
-    handleFullNameChange(event) {
-        let employee = this.state.employee;
-        employee[event.target.id] = event.target.value;
-        this.setState({employee: employee});
-        console.log(event.target.value);
-        if(event.target.value === null || event.target.value.trim().length === 0){
-            this.setState({fullNameControl: {
-                hasError: true,
-                hasSuccess: false
-            }});
-        } else {
-            this.setState({fullNameControl: {
-                hasError: false,
-                hasSuccess: true
-            }});
-        }
+        this.validate              = this.validate.bind(this);
     }
 
     // handle the input change
@@ -71,6 +51,7 @@ class CreateEmployee extends Component {
         let employee = this.state.employee;
         employee[event.target.id] = event.target.value;
         this.setState({employee: employee});
+        this.validate(event);
     }
 
     // handle the radio button change
@@ -115,25 +96,27 @@ class CreateEmployee extends Component {
         }));
     }
 
-    // handle required full name
-    handlefullNameControl(event) {
-        if(event.target.value === null || event.target.value.trim().length === 0){
-            this.setState({fullNameControl: {
-                hasError: true,
-                hasSuccess: false
-            }});
-        } else {
-            this.setState({fullNameControl: {
-                hasError: false,
-                hasSuccess: true
-            }});
-        }
-    }
-
     // handle form submit
     handleSubmit(event) {
         console.log(JSON.stringify(this.state.employee));
         event.preventDefault();
+    }
+
+    // handle validation
+    validate(event){
+        if(event.target.required) {
+            if(event.target.value === null || event.target.value.trim().length === 0){
+                this.setState({fullNameControl: {
+                    hasError: true,
+                    hasSuccess: false
+                }});
+            } else {
+                this.setState({fullNameControl: {
+                    hasError: false,
+                    hasSuccess: true
+                }});
+            }
+        }
     }
 
     render() {
@@ -157,8 +140,8 @@ class CreateEmployee extends Component {
                                 <label htmlFor ="fullName">Full Name</label>
                                 <input id="fullName" type="text" className="form-control" name="fullName" required
                                     value={this.state.employee.fullName} 
-                                    onChange={this.handleFullNameChange} 
-                                    onBlur={this.handlefullNameControl}/>
+                                    onChange={this.handleChange} 
+                                    onBlur={this.validate}/>
                                     { this.state.fullNameControl.hasError ? 
                                         <span className="help-block">
                                             Full Name is required
