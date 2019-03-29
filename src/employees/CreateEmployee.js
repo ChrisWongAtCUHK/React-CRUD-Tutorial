@@ -32,7 +32,10 @@ class CreateEmployee extends Component {
                 hasError: false,
                 hasSuccess: false,
             },
-
+            emailControl: {
+                hasError: false,
+                hasSuccess: false,
+            },
         };
 
         this.handleChange          = this.handleChange.bind(this);
@@ -106,12 +109,12 @@ class CreateEmployee extends Component {
     validate(event){
         if(event.target.required) {
             if(event.target.value === null || event.target.value.trim().length === 0){
-                this.setState({fullNameControl: {
+                this.setState({[`${event.target.id}Control`]: {
                     hasError: true,
                     hasSuccess: false
                 }});
             } else {
-                this.setState({fullNameControl: {
+                this.setState({[`${event.target.id}Control`]: {
                     hasError: false,
                     hasSuccess: true
                 }});
@@ -149,10 +152,19 @@ class CreateEmployee extends Component {
                                         : null }
                             </div>
 
-                            <div className="form-group">
+                            <div className={"form-group " 
+                                + (this.state.emailControl.hasError ? "has-error" : "") 
+                                + (this.state.emailControl.hasSuccess ? "has-success" : "")}>
                                 <label htmlFor="email">Email</label>
                                 <input id="email" type="text" className="form-control" name="email" required
-                                    value={this.state.employee.email} onChange={this.handleChange}/>
+                                    value={this.state.employee.email} 
+                                    onChange={this.handleChange}
+                                    onBlur={this.validate}/>
+                                    { this.state.emailControl.hasError ? 
+                                        <span className="help-block">
+                                            Email is required
+                                        </span>
+                                        : null }
                             </div>
 
                             <div className="form-group">
