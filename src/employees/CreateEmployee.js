@@ -28,6 +28,9 @@ class CreateEmployee extends Component {
                 photoPath: ''
             },
             previewPhoto: false,
+            employeeForm : {
+                invalid: true
+            },
             fullNameControl: {
                 hasError: false,
                 hasSuccess: false,
@@ -37,6 +40,9 @@ class CreateEmployee extends Component {
                 hasSuccess: false,
                 invalid: false
             },
+            genderControl: {
+                hasError: true
+            }
         };
 
         this.handleChange          = this.handleChange.bind(this);
@@ -63,6 +69,7 @@ class CreateEmployee extends Component {
         let employee = this.state.employee;
         employee[event.target.name] = event.target.value;
         this.setState({employee: employee});
+        this.validate(event);
     }
 
     // handle the checkbox change
@@ -109,22 +116,30 @@ class CreateEmployee extends Component {
     // handle validation
     validate(event){
         let hasError = false;
+        let control = `${event.target.id}Control`;
+        if(event.target.type === "radio") {
+            control = `${event.target.name}Control`;
+        }
         // required
         if(event.target.required) {
             if(event.target.value === null || event.target.value.trim().length === 0){
-                this.setState({[`${event.target.id}Control`]: {
+                this.setState({[control]: {
                     hasError: true,
                     hasSuccess: false
-                }});
+                }}, function(){
+                    this.handleSaveButton();
+                });
                 hasError = true;
             } else {
-                this.setState({[`${event.target.id}Control`]: {
+                this.setState({[control]: {
                     hasError: false,
                     hasSuccess: true
-                }});
+                }}, function(){
+                    this.handleSaveButton();
+                });
             }
         }
-
+        
         // pattern match test
         if(event.target.pattern){
             if(RegExp(event.target.pattern).test(event.target.value)){
@@ -132,14 +147,23 @@ class CreateEmployee extends Component {
             } else {
                 if(!hasError){
                     // invalid pattern
-                    let control = `${event.target.id}Control`;
                     this.setState(prevState => ({[control]: {
                         invalid: true,
                         hasError: true,
                         hasSuccess: prevState.hasSuccess
                     }}));
+                    hasError = true;
                 }
             }
+        }
+    }
+
+    // enable/diable the form button
+    handleSaveButton() {
+        if(this.state.fullNameControl.hasSuccess && this.state.emailControl.hasSuccess && this.state.genderControl.hasSuccess){
+            this.setState({employeeForm : {invalid: false}});
+        } else {
+            this.setState({employeeForm : {invalid: true}});
         }
     }
 
@@ -214,18 +238,23 @@ class CreateEmployee extends Component {
                                 </div>
                             </div>
 
-                            <div className="form-group">
+                            <div className={"form-group " + (this.state.genderControl.hasError ? "has-error" : "")}>
                                 <label>Gender</label>
                                 <div className="form-control">
                                 <label className="radio-inline">
-                                    <input type="radio" name="gender" value="male" onChange={this.handleRadioChange}/>
+                                    <input type="radio" name="gender" value="male" required onChange={this.handleRadioChange}/>
                                     Male
                                 </label>
                                 <label className="radio-inline">
-                                    <input type="radio" name="gender" value="female" onChange={this.handleRadioChange}/>
+                                    <input type="radio" name="gender" value="female" required onChange={this.handleRadioChange}/>
                                     Female
                                 </label>
                                 </div>
+                                { this.state.genderControl.hasError ? 
+                                        <span className="help-block">
+                                            Gender is invalid
+                                        </span>
+                                        : null }
                             </div>
 
                             <div className="form-group">
@@ -270,7 +299,7 @@ class CreateEmployee extends Component {
                             </div>
 
                             <div className="panel-footer">
-                                <button className="btn btn-primary" type="submit" disabled={!this.state.fullNameControl.hasSuccess}>Save</button>
+                                <button className="btn btn-primary" type="submit" disabled={this.state.employeeForm.invalid}>Save</button>
                             </div>
                         </div>
                     </div>
