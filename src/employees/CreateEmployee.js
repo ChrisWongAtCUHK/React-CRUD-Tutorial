@@ -48,6 +48,9 @@ class CreateEmployee extends Component {
             contactPreferenceControl: {
                 hasError: true
             },
+            isActiveControl: {
+                invalid: true
+            },
             genderControl: {
                 hasError: true
             }
@@ -86,6 +89,7 @@ class CreateEmployee extends Component {
         let employee = this.state.employee;
         employee[event.target.name] = event.target.checked;
         this.setState({employee: employee});
+        this.validate(event);
     }
 
     // handle the select change
@@ -126,7 +130,7 @@ class CreateEmployee extends Component {
     validate(event) {
         let hasError = false;
         let control = `${event.target.id}Control`;
-        if(event.target.type === "radio") {
+        if(event.target.type === "radio" || event.target.type === "checkbox") {
             control = `${event.target.name}Control`;
         }
         // required
@@ -178,10 +182,12 @@ class CreateEmployee extends Component {
     handleSaveButton() {
         let email = document.getElementById("email");
         let phoneNumber = document.getElementById("phoneNumber");
+        let isActive = document.getElementsByName("isActive")[0];
         if(this.state.fullNameControl.hasSuccess && 
             !this.state.contactPreferenceControl.hasError &&
             ((email.required && this.state.emailControl.hasSuccess && !this.state.emailControl.invalid) || !email.required) && 
             ((phoneNumber.required && this.state.phoneNumberControl.hasSuccess) || !phoneNumber.required) &&
+            ((isActive.required && !this.state.isActiveControl.invalid) || !isActive.required) &&
             this.state.genderControl.hasSuccess){
             this.setState({employeeForm : {invalid: false}});
         } else {
@@ -343,9 +349,14 @@ class CreateEmployee extends Component {
                             <div className="form-group">
                                 <div className="form-control">
                                 <label className="checkbox-inline">
-                                    <input type="checkbox" name="isActive" onChange={this.handleCheckboxChange}/>Is Active
+                                    <input type="checkbox" name="isActive" required onChange={this.handleCheckboxChange}/>Is Active
                                 </label>
                                 </div>
+                                { this.state.isActiveControl.invalid ? 
+                                        <span className="help-block">
+                                            Is Active is required
+                                        </span>
+                                        : null }
                             </div>
 
                             <div className="form-group">
