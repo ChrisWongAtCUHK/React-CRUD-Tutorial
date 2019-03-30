@@ -192,23 +192,20 @@ class CreateEmployee extends Component {
     // handle dynamic required validation
     handleDynamicRequired(event) {
         if(event.target.value === "email") {
-            let hasError = this.enableHasError("email", true);
+            this.enableHasError("email", true);
             let email = document.getElementById("email");
             let control = "emailControl";
             // pattern match test
-            if(email.required && email.pattern){
+            if(this.state.employee.contactPreference==="email" && email.pattern){
                 if(RegExp(email.pattern).test(email.value)){
                     // do nothing
                 } else {
-                    if(!hasError){
-                        // invalid pattern
-                        this.setState(prevState => ({[control]: {
-                            invalid: true,
-                            hasError: true,
-                            hasSuccess: prevState[control].hasSuccess
-                        }}));
-                        hasError = true;
-                    }
+                    // invalid pattern
+                    this.setState(prevState => ({[control]: {
+                        invalid: true,
+                        hasError: true,
+                        hasSuccess: prevState[control].hasSuccess
+                    }}));
                 }
             }
             this.enableHasError("phoneNumber", false);
@@ -222,14 +219,12 @@ class CreateEmployee extends Component {
     enableHasError(controlName, enable) {
         let control = `${controlName}Control`;
         let value = document.getElementById(controlName).value;
-        let hasError = false;
         if(enable && (value === null || value.trim().length === 0)){
             this.setState(prevState => ({[control]: {
                 hasError: true,
                 hasSuccess: prevState[control].hasSuccess
             }}), function(){
                 this.handleSaveButton();
-                hasError = true;
             });
         } else {
             this.setState(prevState => ({[control]: {
@@ -239,7 +234,6 @@ class CreateEmployee extends Component {
                 this.handleSaveButton();
             });
         }
-        return hasError;
     }
 
     render() {
