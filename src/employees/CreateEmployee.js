@@ -163,7 +163,11 @@ class CreateEmployee extends Component {
         // pattern match test
         if(event.target.required && event.target.pattern){
             if(RegExp(event.target.pattern).test(event.target.value)){
-                // do nothing
+                this.setState(prevState => ({[control]: {
+                    invalid: false,
+                    hasError: false,
+                    hasSuccess: true
+                }}));
             } else {
                 if(!hasError){
                     // invalid pattern
@@ -204,13 +208,18 @@ class CreateEmployee extends Component {
             // pattern match test
             if(this.state.employee.contactPreference==="email" && email.pattern){
                 if(RegExp(email.pattern).test(email.value)){
-                    // do nothing
+                    // valid
+                    this.setState(prevState => ({[control]: {
+                        invalid: false,
+                        hasError: false,
+                        hasSuccess: true
+                    }}));
                 } else {
                     // invalid pattern
                     this.setState(prevState => ({[control]: {
                         invalid: true,
                         hasError: true,
-                        hasSuccess: prevState[control].hasSuccess
+                        hasSuccess: false
                     }}));
                 }
             }
