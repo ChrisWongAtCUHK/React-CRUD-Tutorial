@@ -40,6 +40,11 @@ class CreateEmployee extends Component {
                 hasSuccess: false,
                 invalid: false
             },
+            phoneNumberControl: {
+                hasError: false,
+                hasSuccess: false,
+                invalid: undefined
+            },
             contactPreferenceControl: {
                 hasError: true
             },
@@ -73,7 +78,7 @@ class CreateEmployee extends Component {
         employee[event.target.name] = event.target.value;
         this.setState({employee: employee});
         this.validate(event);
-        this.handleEmailValidation(event);
+        this.handleDynamicRequired(event);
     }
 
     // handle the checkbox change
@@ -118,7 +123,7 @@ class CreateEmployee extends Component {
     }
 
     // handle validation
-    validate(event){
+    validate(event) {
         let hasError = false;
         let control = `${event.target.id}Control`;
         if(event.target.type === "radio") {
@@ -171,29 +176,70 @@ class CreateEmployee extends Component {
 
     // enable/diable the form button
     handleSaveButton() {
-        if(this.state.fullNameControl.hasSuccess && this.state.emailControl.hasSuccess && this.state.genderControl.hasSuccess){
+        let email = document.getElementById("email");
+        let phoneNumber = document.getElementById("phoneNumber");
+        if(this.state.fullNameControl.hasSuccess && 
+            !this.state.contactPreferenceControl.hasError &&
+            ((email.required && this.state.emailControl.hasSuccess && !this.state.emailControl.invalid) || !email.required) && 
+            ((phoneNumber.required && this.state.phoneNumberControl.hasSuccess) || !phoneNumber.required) &&
+            this.state.genderControl.hasSuccess){
             this.setState({employeeForm : {invalid: false}});
         } else {
             this.setState({employeeForm : {invalid: true}});
         }
     }
 
-    // handle email validation
-    handleEmailValidation(event){
-        let control = `emailControl`;
-        if(event.target.value === "email"){
+    // handle dynamic required validation
+    handleDynamicRequired(event) {
+        if(event.target.value === "email") {
+            let hasError = this.enableHasError("email", true);
+            let email = document.getElementById("email");
+            let control = "emailControl";
+            // pattern match test
+            if(email.required && email.pattern){
+                if(RegExp(email.pattern).test(email.value)){
+                    // do nothing
+                } else {
+                    if(!hasError){
+                        // invalid pattern
+                        this.setState(prevState => ({[control]: {
+                            invalid: true,
+                            hasError: true,
+                            hasSuccess: prevState[control].hasSuccess
+                        }}));
+                        hasError = true;
+                    }
+                }
+            }
+            this.enableHasError("phoneNumber", false);
+        } else if(event.target.value === "phoneNumber") {
+            this.enableHasError("phoneNumber", true);
+            this.enableHasError("email", false);
+        }
+    }
+
+    // enable/disabe the hasError property
+    enableHasError(controlName, enable) {
+        let control = `${controlName}Control`;
+        let value = document.getElementById(controlName).value;
+        let hasError = false;
+        if(enable && (value === null || value.trim().length === 0)){
             this.setState(prevState => ({[control]: {
-                invalid: prevState[control].invalid,
                 hasError: true,
                 hasSuccess: prevState[control].hasSuccess
-            }}));
+            }}), function(){
+                this.handleSaveButton();
+                hasError = true;
+            });
         } else {
             this.setState(prevState => ({[control]: {
-                invalid: prevState[control].invalid,
                 hasError: false,
-                hasSuccess: prevState[control].hasSuccess
-            }}));
+                hasSuccess: true
+            }}), function(){
+                this.handleSaveButton();
+            });
         }
+        return hasError;
     }
 
     render() {
@@ -230,7 +276,8 @@ class CreateEmployee extends Component {
                                 + (this.state.emailControl.hasError ? "has-error" : "") 
                                 + (this.state.emailControl.hasSuccess ? "has-success" : "")}>
                                 <label htmlFor="email">Email</label>
-                                <input id="email" type="text" className="form-control" name="email" required={this.state.employee.contactPreference==="email"}
+                                <input id="email" type="text" className="form-control" name="email" 
+                                    required={this.state.employee.contactPreference==="email"}
                                     pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
                                     value={this.state.employee.email} 
                                     onChange={this.handleChange}
@@ -249,8 +296,16 @@ class CreateEmployee extends Component {
 
                             <div className="form-group">
                                 <label htmlFor="phoneNumber">Phone Number</label>
-                                <input id="phoneNumber" type="text" className="form-control" name="phoneNumber" 
-                                    value={this.state.employee.phoneNumber} onChange={this.handleChange}/>
+                                <input id="phoneNumber" type="text" className="form-control" name="phoneNumber"
+                                    required={this.state.employee.contactPreference==="phoneNumber"}
+                                    value={this.state.employee.phoneNumber} 
+                                    onChange={this.handleChange}
+                                    onBlur={this.validate}/>
+                                    { this.state.phoneNumberControl.hasError ? 
+                                        <span className="help-block">
+                                            Phone Number is required
+                                        </span>
+                                        : null }
                             </div>
 
                             <div className={"form-group " + (this.state.contactPreferenceControl.hasError ? "has-error" : "")}>
@@ -261,7 +316,7 @@ class CreateEmployee extends Component {
                                     Email
                                 </label>
                                 <label className="radio-inline">
-                                    <input type="radio" name="contactPreference" value="phone" required onChange={this.handleRadioChange}/>
+                                    <input type="radio" name="contactPreference" value="phoneNumber" required onChange={this.handleRadioChange}/>
                                     Phone
                                 </label>
                                 </div>
