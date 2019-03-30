@@ -229,7 +229,7 @@ class CreateEmployee extends Component {
         } else {
             this.setState(prevState => ({[control]: {
                 hasError: false,
-                hasSuccess: true
+                hasSuccess: false
             }}), function(){
                 this.handleSaveButton();
             });
