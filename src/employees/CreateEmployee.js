@@ -53,6 +53,10 @@ class CreateEmployee extends Component {
             },
             genderControl: {
                 hasError: true
+            },
+            departmentControl: {
+                selectedId: null,
+                hasError: false
             }
         };
 
@@ -97,6 +101,7 @@ class CreateEmployee extends Component {
         let employee = this.state.employee;
         employee[event.target.name] = event.target.value;
         this.setState({employee: employee});
+        this.validate(event);
     }
     
     // handle the change of date of birth
@@ -187,12 +192,14 @@ class CreateEmployee extends Component {
         let email = document.getElementById("email");
         let phoneNumber = document.getElementById("phoneNumber");
         let isActive = document.getElementsByName("isActive")[0];
+        let department = document.getElementById("department");
         if(this.state.fullNameControl.hasSuccess && 
             !this.state.contactPreferenceControl.hasError &&
             ((email.required && this.state.emailControl.hasSuccess && !this.state.emailControl.invalid) || !email.required) && 
             ((phoneNumber.required && this.state.phoneNumberControl.hasSuccess) || !phoneNumber.required) &&
+            this.state.genderControl.hasSuccess && 
             ((isActive.required && !this.state.isActiveControl.invalid) || !isActive.required) &&
-            this.state.genderControl.hasSuccess){
+            ((department.required && !this.state.departmentControl.hasError) || !department.required)){
             this.setState({employeeForm : {invalid: false}});
         } else {
             this.setState({employeeForm : {invalid: true}});
@@ -321,7 +328,9 @@ class CreateEmployee extends Component {
                                 <label>Contact Preference</label>
                                 <div className="form-control">
                                 <label className="radio-inline">
-                                    <input type="radio" name="contactPreference" value="email" required onChange={this.handleRadioChange}/>
+                                    <input type="radio" name="contactPreference" value="email" required 
+                                        onChange={this.handleRadioChange}
+                                        onBlur={this.validate}/>
                                     Email
                                 </label>
                                 <label className="radio-inline">
@@ -370,11 +379,19 @@ class CreateEmployee extends Component {
 
                             <div className="form-group">
                                 <label htmlFor="department">Department</label>
-                                    <select id="department" name="department" className="form-control" onChange={this.handleSelectChange}>
+                                    <select id="department" name="department" className="form-control" required defaultValue={''}
+                                        onChange={this.handleSelectChange}
+                                        onBlur={this.validate}>
+                                        <option value="" disabled>Select Department</option>
                                         {departments.map(department =>(
                                             <option value={department.id} key={department.id} >{department.name}</option>
                                         ))}
                                     </select>
+                                    { this.state.departmentControl.hasError ? 
+                                        <span className="help-block">
+                                            Department is required
+                                        </span>
+                                        : null }
                             </div>
 
                             <div className="form-group">
