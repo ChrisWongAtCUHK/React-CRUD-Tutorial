@@ -74,7 +74,8 @@ class CreateEmployee extends Component {
             confirmPasswordControl: {
                 touched: false,
                 hasError: false
-            }
+            },
+            passwordMatch: true
         };
 
         this.handleChange          = this.handleChange.bind(this);
@@ -225,7 +226,8 @@ class CreateEmployee extends Component {
             ((isActive.required && !this.state.isActiveControl.invalid) || !isActive.required) &&
             ((department.required && (this.state.departmentControl.touched && !this.state.departmentControl.hasError)) || !department.required) &&
             ((password.required && (this.state.passwordControl.touched && !this.state.passwordControl.hasError)) || !password.required) &&
-            ((confirmPassword.required && (this.state.confirmPasswordControl.touched && !this.state.confirmPasswordControl.hasError)) || !confirmPassword.required)){
+            ((confirmPassword.required && (this.state.confirmPasswordControl.touched && !this.state.confirmPasswordControl.hasError)) || !confirmPassword.required) &&
+            this.state.employee.password === this.state.employee.confirmPassword){
             this.setState({employeeForm : {invalid: false}});
         } else {
             this.setState({employeeForm : {invalid: true}});
@@ -243,6 +245,7 @@ class CreateEmployee extends Component {
                 if(RegExp(email.pattern).test(email.value)){
                     // valid
                     this.setState(prevState => ({[control]: {
+                        touched: true,
                         invalid: false,
                         hasError: false,
                         hasSuccess: true
@@ -250,6 +253,7 @@ class CreateEmployee extends Component {
                 } else {
                     // invalid pattern
                     this.setState(prevState => ({[control]: {
+                        touched: true,
                         invalid: true,
                         hasError: true,
                         hasSuccess: false
@@ -468,6 +472,11 @@ class CreateEmployee extends Component {
                                     { this.state.confirmPasswordControl.hasError ? 
                                         <span className="help-block">
                                             Confirm Password is required
+                                        </span>
+                                        : null }
+                                    { this.state.employee.password !== this.state.employee.confirmPassword ? 
+                                        <span className="help-block">
+                                            Password and Confirm Password does not match
                                         </span>
                                         : null }
                             </div>
