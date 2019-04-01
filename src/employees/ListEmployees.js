@@ -2,30 +2,35 @@ import React, { Component } from 'react';
 import DisplayEmployee from './DisplayEmployee';
 
 class ListEmployees extends Component {
-  constructor(props) {
+  constructor(props){
     super(props);
-    this.state = {
-      employeeToDisplayId: 0
+
+    this.state  = {
+      dataFromChild: null
     };
-    this.nextEmployee = this.nextEmployee.bind(this);
   }
 
-  nextEmployee(event) {
-    if (this.state.employeeToDisplayId < this.props.employees.length - 1) {
-      this.setState({employeeToDisplayId: this.state.employeeToDisplayId + 1});
-    } else {
-      this.setState({employeeToDisplayId: 0});
-    }
+  // tricky parameter
+  handleClick(employee) {
+    this.setState({
+      dataFromChild: employee
+    });
   }
 
   render() {
     return (
       <div>
-        <button onClick={this.nextEmployee} class="btn btn-primary">
-          View Next Employee
-        </button>
-        <br/><br/>
-        <DisplayEmployee employee={this.props.employees[this.state.employeeToDisplayId]} />
+        { 
+          this.state.dataFromChild ? 
+            <h1>
+              {this.state.dataFromChild.name + ' ' + this.state.dataFromChild.gender}
+            </h1>
+            : null 
+          }
+      
+        {this.props.employees.map(employee =>(  
+            <DisplayEmployee key={employee.id} employee={employee} onClick={this.handleClick.bind(this, employee)}/>
+        ))}
       </div>
     );
   }

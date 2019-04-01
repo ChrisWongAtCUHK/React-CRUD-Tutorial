@@ -15,7 +15,7 @@ const images = importAll(require.context('../assets/images/', false, /\.(png|jpe
 class DisplayEmployee extends Component {
     render() {
       return (
-          <div className="panel panel-primary" key={this.props.employee.id}>
+          <div className="panel panel-primary" onClick={this.props.onClick}>
             <div className="panel-heading">
               <h3 className="panel-title">{this.props.employee.name}</h3>
             </div>
