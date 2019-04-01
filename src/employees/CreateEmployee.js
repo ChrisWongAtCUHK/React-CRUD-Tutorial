@@ -25,37 +25,54 @@ class CreateEmployee extends Component {
                 contactPreference: '',
                 gender: '',
                 dateOfBirth: new Date(),
-                photoPath: ''
+                photoPath: '',
+                password: '',
+                confirmPassword: ''
             },
             previewPhoto: false,
             employeeForm : {
                 invalid: true
             },
             fullNameControl: {
+                touched: false,
                 hasError: false,
                 hasSuccess: false,
             },
             emailControl: {
+                touched: false,
                 hasError: false,
                 hasSuccess: false,
                 invalid: false
             },
             phoneNumberControl: {
+                touched: false,
                 hasError: false,
                 hasSuccess: false,
                 invalid: undefined
             },
             contactPreferenceControl: {
+                touched: false,
                 hasError: true
             },
             isActiveControl: {
+                touched: false,
                 invalid: true
             },
             genderControl: {
+                touched: false,
                 hasError: true
             },
             departmentControl: {
                 selectedId: null,
+                touched: false,
+                hasError: false
+            },
+            passwordControl: {
+                touched: false,
+                hasError: false
+            },
+            confirmPasswordControl: {
+                touched: false,
                 hasError: false
             }
         };
@@ -142,6 +159,7 @@ class CreateEmployee extends Component {
         if(event.target.required) {
             if(event.target.value === null || event.target.value.trim().length === 0){
                 this.setState({[control]: {
+                    touched: true,
                     hasError: true,
                     hasSuccess: false
                 }}, function(){
@@ -150,6 +168,7 @@ class CreateEmployee extends Component {
                 hasError = true;
             } else {
                 this.setState({[control]: {
+                    touched: true,
                     hasError: false,
                     hasSuccess: true
                 }}, function(){
@@ -158,6 +177,7 @@ class CreateEmployee extends Component {
             }
         } else {
             this.setState({[control]: {
+                touched: true,
                 hasError: false,
                 hasSuccess: false
             }}, function(){
@@ -169,6 +189,7 @@ class CreateEmployee extends Component {
         if(event.target.required && event.target.pattern){
             if(RegExp(event.target.pattern).test(event.target.value)){
                 this.setState(prevState => ({[control]: {
+                    touched: true,
                     invalid: false,
                     hasError: false,
                     hasSuccess: true
@@ -177,6 +198,7 @@ class CreateEmployee extends Component {
                 if(!hasError){
                     // invalid pattern
                     this.setState(prevState => ({[control]: {
+                        touched: true,
                         invalid: true,
                         hasError: true,
                         hasSuccess: prevState[control].hasSuccess
@@ -193,13 +215,17 @@ class CreateEmployee extends Component {
         let phoneNumber = document.getElementById("phoneNumber");
         let isActive = document.getElementsByName("isActive")[0];
         let department = document.getElementById("department");
-        if(this.state.fullNameControl.hasSuccess && 
-            !this.state.contactPreferenceControl.hasError &&
-            ((email.required && this.state.emailControl.hasSuccess && !this.state.emailControl.invalid) || !email.required) && 
-            ((phoneNumber.required && this.state.phoneNumberControl.hasSuccess) || !phoneNumber.required) &&
-            this.state.genderControl.hasSuccess && 
+        let password = document.getElementById("password");
+        let confirmPassword = document.getElementById("confirmPassword");
+        if((this.state.fullNameControl.touched && this.state.fullNameControl.hasSuccess) && 
+            (this.state.contactPreferenceControl.touched && !this.state.contactPreferenceControl.hasError) &&
+            ((email.required && this.state.emailControl.touched && this.state.emailControl.hasSuccess && !this.state.emailControl.invalid) || !email.required) && 
+            ((phoneNumber.required && this.state.phoneNumberControl.touched && this.state.phoneNumberControl.hasSuccess) || !phoneNumber.required) &&
+            (this.state.genderControl.touched && this.state.genderControl.hasSuccess) && 
             ((isActive.required && !this.state.isActiveControl.invalid) || !isActive.required) &&
-            ((department.required && !this.state.departmentControl.hasError) || !department.required)){
+            ((department.required && (this.state.departmentControl.touched && !this.state.departmentControl.hasError)) || !department.required) &&
+            ((password.required && (this.state.passwordControl.touched && !this.state.passwordControl.hasError)) || !password.required) &&
+            ((confirmPassword.required && (this.state.confirmPasswordControl.touched && !this.state.confirmPasswordControl.hasError)) || !confirmPassword.required)){
             this.setState({employeeForm : {invalid: false}});
         } else {
             this.setState({employeeForm : {invalid: true}});
@@ -416,6 +442,34 @@ class CreateEmployee extends Component {
                                     onClick={this.handlePhotoToggle}>
                                 Show Preview
                                 </button>
+                            </div>
+
+                            <div className={"form-group " 
+                                + (this.state.passwordControl.hasError ? "has-error" : "")}>
+                                <label htmlFor ="password">Password</label>
+                                <input id="password" type="text" className="form-control" name="password" required
+                                    value={this.state.employee.password} 
+                                    onChange={this.handleChange} 
+                                    onBlur={this.validate}/>
+                                    { this.state.passwordControl.hasError ? 
+                                        <span className="help-block">
+                                            Password is required
+                                        </span>
+                                        : null }
+                            </div>
+
+                            <div className={"form-group " 
+                                + (this.state.confirmPasswordControl.hasError ? "has-error" : "")}>
+                                <label htmlFor ="confirmPassword">Confirm Password</label>
+                                <input id="confirmPassword" type="text" className="form-control" name="confirmPassword" required
+                                    value={this.state.employee.confirmPassword} 
+                                    onChange={this.handleChange} 
+                                    onBlur={this.validate}/>
+                                    { this.state.confirmPasswordControl.hasError ? 
+                                        <span className="help-block">
+                                            Confirm Password is required
+                                        </span>
+                                        : null }
                             </div>
 
                             <div className="panel-footer">
