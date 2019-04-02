@@ -14,22 +14,24 @@ function importAll(r) {
   
 const images = importAll(require.context('../assets/images/', false, /\.(png|jpe?g|svg)$/));
 
+const defaultEmployee = { 
+    fullName: '',
+    email: '',
+    phoneNumber:'',
+    contactPreference: '',
+    gender: '',
+    dateOfBirth: new Date(),
+    photoPath: '',
+    password: '',
+    confirmPassword: ''
+};
+
 class CreateEmployee extends Component {
     constructor(props) {
         super(props);
-    
+
         this.state = { 
-            employee: { 
-                fullName: '',
-                email: '',
-                phoneNumber:'',
-                contactPreference: '',
-                gender: '',
-                dateOfBirth: new Date(),
-                photoPath: '',
-                password: '',
-                confirmPassword: ''
-            },
+            employee: Object.assign({}, defaultEmployee),
             previewPhoto: false,
             employeeForm : {
                 invalid: true
@@ -153,7 +155,14 @@ class CreateEmployee extends Component {
 
     // handle validation
     validate(event) {
-        this.setState({dirty: true});
+        // fake dirty check
+        for (var key in this.state.employee) {
+            console.log(key, this.state.employee[key]);
+            if(this.state.employee[key] !== defaultEmployee[key]){
+                this.setState({dirty: true});
+            }
+        }
+        
         let hasError = false;
         let control = `${event.target.id}Control`;
         if(event.target.type === "radio" || event.target.type === "checkbox") {
