@@ -35,4 +35,8 @@ const listEmployees = [
 
 export function getEmployees() {
     return listEmployees;
-}
+};
+
+export function getEmployee(id) {
+    return listEmployees.find(e => e.id.toString() === id);
+};
