@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
+import { Prompt } from 'react-router-dom';
  
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -75,7 +76,8 @@ class CreateEmployee extends Component {
                 touched: false,
                 hasError: false
             },
-            passwordMatch: true
+            passwordMatch: true,
+            dirty: false
         };
 
         this.handleChange          = this.handleChange.bind(this);
@@ -151,6 +153,7 @@ class CreateEmployee extends Component {
 
     // handle validation
     validate(event) {
+        this.setState({dirty: true});
         let hasError = false;
         let control = `${event.target.id}Control`;
         if(event.target.type === "radio" || event.target.type === "checkbox") {
@@ -488,6 +491,10 @@ class CreateEmployee extends Component {
                     </div>
                 </form>
                 Generated Model :{JSON.stringify(this.state.employee)}
+                <Prompt
+                    when={this.state.dirty}
+                    message={location => 'Are you sure you want to discard your changes?'}
+                />
             </div>
         )
     }
