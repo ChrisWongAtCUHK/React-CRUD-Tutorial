@@ -5,6 +5,7 @@ class EmployeeDetails extends Component {
       return (
         <p>
         employee-details works!
+        { this.props.match.params.id}
       </p>
       
       )

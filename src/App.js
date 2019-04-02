@@ -6,41 +6,9 @@ import './App.css';
 import ListEmployees from './employees/ListEmployees';
 import CreateEmployee from './employees/CreateEmployee';
 import EmployeeDetails from './employees/EmployDetails';
+import * as employeeService from './employees/service/employee-service';
 
-const employees = [
-  {
-    id: 1,
-    name: 'Mark',
-    gender: 'Male',
-    contactPreference: 'Email',
-    email: 'mark@pragimtech.com',
-    dateOfBirth: new Date('10/25/1988'),
-    department: 'IT',
-    isActive: true,
-    photoPath: 'mark.png'
-  },
-  {
-    id: 2,
-    name: 'Mary',
-    gender: 'Female',
-    contactPreference: 'Phone',
-    phoneNumber: 2345978640,
-    dateOfBirth: new Date('11/20/1979'),
-    department: 'HR',
-    isActive: true,
-    photoPath: 'mary.png'
-  },
-  {
-    id: 3,
-    name: 'John',
-    gender: 'Male',
-    contactPreference: 'Phone',
-    phoneNumber: 5432978640,
-    dateOfBirth: new Date('3/25/1976'),
-    department: 'IT',
-    isActive: false,
-    photoPath: 'john.png'
-  }]
+const employees = employeeService.getEmployees();
 
 class App extends Component {
   render() {
@@ -61,7 +29,7 @@ class App extends Component {
             <Route exact path="/" component={(props) => <ListEmployees {...props} employees={employees} />} />
             <Route exact path="/create" component={CreateEmployee} />
             <Route exact path="/list" component={(props) => <ListEmployees {...props} employees={employees} />} />
-            <Route exact path="/employees/:id" component={EmployeeDetails} />
+            <Route exact path="/employees/:id" component={EmployeeDetails}/>
             <Route component={(props) => <ListEmployees {...props} employees={employees} />} />
           </Switch>  
         </div>
