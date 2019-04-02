@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import './App.css';
 import ListEmployees from './employees/ListEmployees';
 import CreateEmployee from './employees/CreateEmployee';
+import EmployeeDetails from './employees/EmployDetails';
 
 const employees = [
   {
@@ -60,6 +61,7 @@ class App extends Component {
             <Route exact path="/" component={(props) => <ListEmployees {...props} employees={employees} />} />
             <Route exact path="/create" component={CreateEmployee} />
             <Route exact path="/list" component={(props) => <ListEmployees {...props} employees={employees} />} />
+            <Route exact path="/employees/:id" component={EmployeeDetails} />
             <Route component={(props) => <ListEmployees {...props} employees={employees} />} />
           </Switch>  
         </div>

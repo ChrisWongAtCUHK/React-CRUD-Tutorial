@@ -15,19 +15,12 @@ class ListEmployees extends Component {
     this.setState({
       dataFromChild: employee
     });
+    this.props.history.push(`/employees/${employee.id}`);
   }
 
   render() {
     return (
       <div>
-        { 
-          this.state.dataFromChild ? 
-            <h1>
-              {this.state.dataFromChild.name + ' ' + this.state.dataFromChild.gender}
-            </h1>
-            : null 
-          }
-      
         {this.props.employees.map(employee =>(  
             <DisplayEmployee key={employee.id} employee={employee} onClick={this.handleClick.bind(this, employee)}/>
         ))}
