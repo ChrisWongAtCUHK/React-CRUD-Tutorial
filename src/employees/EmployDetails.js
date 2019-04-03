@@ -11,6 +11,20 @@ class EmployeeDetails extends Component {
             employee: employeeService.getEmployee(this.props.match.params.id)
         }
     }
+
+    getNextEmployee() {
+        let id = parseInt(this.props.match.params.id);
+        if(id < 3) {
+            id = id + 1;
+        } else {
+            id = 1;
+        }
+        this.props.history.push(`/employees/${id}`);
+        this.setState({
+            employee: employeeService.getEmployee(id.toString())
+        });
+    }
+
     render() {
       return (
         <div className="panel panel-primary">
@@ -89,8 +103,11 @@ class EmployeeDetails extends Component {
                     </div>
                 </div>
             </div>
-            <div class="panel-footer">
+            <div className="panel-footer">
                 <Link className="btn btn-primary" to="/list">Back to List</Link>
+                <button className="btn btn-primary pull-right" onClick={this.getNextEmployee.bind(this)}>
+                    View Next Employee
+                </button>
             </div>
         </div> 
       )
