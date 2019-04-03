@@ -53,7 +53,8 @@ function importAll(r) {
     }
     return images;
   }
-  
+
+// get images array
 export function getImages() {
     return importAll(require.context('../../assets/images/', false, /\.(png|jpe?g|svg)$/));
 }

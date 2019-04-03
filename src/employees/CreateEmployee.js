@@ -5,16 +5,6 @@ import { Prompt } from 'react-router-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 import * as employeeService from './service/employee-service';
 
-function importAll(r) {
-    let images = {};
-    for (var item of r.keys()) {
-      images[item.replace('./', '')] = r(item); 
-    }
-    return images;
-  }
-  
-const images = importAll(require.context('../assets/images/', false, /\.(png|jpe?g|svg)$/));
-
 const defaultEmployee = { 
     fullName: '',
     email: '',
@@ -137,7 +127,7 @@ class CreateEmployee extends Component {
     // handle the photo change
     handlePhotoChange(event) {
         let employee = this.state.employee;
-        employee.photoPath = images[event.target.value];
+        employee.photoPath = employeeService.getImages()[event.target.value];
         this.setState({employee: employee});
     }
 
