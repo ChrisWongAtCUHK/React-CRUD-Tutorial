@@ -28,7 +28,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={(props) => <ListEmployees {...props} employees={employees} />} />
             <Route exact path="/create" component={CreateEmployee} />
-            <Route exact path="/list" component={(props) => <ListEmployees {...props} employees={employees} />} />
+            <Route exact path="/list/:id?" component={(props) => <ListEmployees {...props} employees={employees} />} />
             <Route exact path="/employees/:id" component={EmployeeDetails}/>
             <Route component={(props) => <ListEmployees {...props} employees={employees} />} />
           </Switch>  

@@ -5,9 +5,16 @@ import * as employeeService from './service/employee-service';
 
 
 class DisplayEmployee extends Component {
+    handleSelectedEmployee() {
+        let className = "panel panel-primary pointerCursor";
+        if(this.props.selectedEmployeeId === this.props.employee.id.toString()) {
+            return className + " panel-success";
+        }
+        return className;
+    }
     render() {
       return (
-          <div className="panel panel-primary pointerCursor" onClick={this.props.onClick}>
+          <div className={this.handleSelectedEmployee()} onClick={this.props.onClick}>
             <div className="panel-heading">
               <h3 className="panel-title">{this.props.employee.name}</h3>
             </div>

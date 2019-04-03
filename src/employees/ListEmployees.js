@@ -22,7 +22,7 @@ class ListEmployees extends Component {
     return (
       <div>
         {this.props.employees.map(employee =>(  
-            <DisplayEmployee key={employee.id} employee={employee} onClick={this.handleClick.bind(this, employee)}/>
+            <DisplayEmployee key={employee.id} employee={employee} onClick={this.handleClick.bind(this, employee)} selectedEmployeeId={this.props.match.params.id} />
         ))}
       </div>
     );

@@ -12,6 +12,9 @@ class EmployeeDetails extends Component {
         }
     }
 
+    // Everytime this method is called the employee id value is
+    // incremented by 1 and then redirected to the same route
+    // but with a different id parameter value
     getNextEmployee() {
         let id = parseInt(this.props.match.params.id);
         if(id < 3) {
@@ -104,7 +107,7 @@ class EmployeeDetails extends Component {
                 </div>
             </div>
             <div className="panel-footer">
-                <Link className="btn btn-primary" to="/list">Back to List</Link>
+                <Link className="btn btn-primary" to={`/list/${this.props.match.params.id}`}>Back to List</Link>
                 <button className="btn btn-primary pull-right" onClick={this.getNextEmployee.bind(this)}>
                     View Next Employee
                 </button>
