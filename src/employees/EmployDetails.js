@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import Moment from 'moment';
 import * as employeeService from './service/employee-service';
 
@@ -87,6 +88,9 @@ class EmployeeDetails extends Component {
                 
                     </div>
                 </div>
+            </div>
+            <div class="panel-footer">
+                <Link className="btn btn-primary" to="/list">Back to List</Link>
             </div>
         </div> 
       )
