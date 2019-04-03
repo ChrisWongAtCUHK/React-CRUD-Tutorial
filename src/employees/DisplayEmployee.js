@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
 import Moment from 'moment';
 import './DisplayEmployees.css';
+import * as employeeService from './service/employee-service';
 
-function importAll(r) {
-  let images = {};
-  for (var item of r.keys()) {
-    images[item.replace('./', '')] = r(item); 
-  }
-  return images;
-}
-
-const images = importAll(require.context('../assets/images/', false, /\.(png|jpe?g|svg)$/));
 
 class DisplayEmployee extends Component {
     render() {
@@ -23,7 +15,7 @@ class DisplayEmployee extends Component {
               <div className="col-xs-10">
                 <div className="row vertical-align">
                   <div className="col-xs-4">
-                    <img className="imageClass" src={images[this.props.employee.photoPath]} alt=""/>
+                    <img className="imageClass" src={employeeService.getImages()[this.props.employee.photoPath]} alt=""/>
                   </div>
 
                   <div className="col-xs-8">

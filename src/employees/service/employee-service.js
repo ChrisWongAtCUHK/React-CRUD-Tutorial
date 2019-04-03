@@ -40,3 +40,16 @@ export function getEmployees() {
 export function getEmployee(id) {
     return listEmployees.find(e => e.id.toString() === id);
 };
+
+function importAll(r) {
+    let images = {};
+    for (var item of r.keys()) {
+      images[item.replace('./', '')] = r(item); 
+    }
+    return images;
+  }
+  
+export function getImages() {
+    return importAll(require.context('../../assets/images/', false, /\.(png|jpe?g|svg)$/));
+}
+  
