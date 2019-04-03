@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import { Prompt } from 'react-router-dom';
  
 import 'react-datepicker/dist/react-datepicker.css';
+import * as employeeService from './service/employee-service';
 
 function importAll(r) {
     let images = {};
@@ -149,7 +150,8 @@ class CreateEmployee extends Component {
 
     // handle form submit
     handleSubmit(event) {
-        console.log(JSON.stringify(this.state.employee));
+        employeeService.save(this.state.employee);
+        this.props.history.push(`/list`);
         event.preventDefault();
     }
 
@@ -157,7 +159,6 @@ class CreateEmployee extends Component {
     validate(event) {
         // fake dirty check
         for (var key in this.state.employee) {
-            console.log(key, this.state.employee[key]);
             if(this.state.employee[key] !== defaultEmployee[key]){
                 this.setState({dirty: true});
             }

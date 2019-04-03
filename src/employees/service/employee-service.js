@@ -1,4 +1,4 @@
-const listEmployees = [
+let listEmployees = [
     {
       id: 1,
       name: 'Mark',
@@ -36,6 +36,11 @@ const listEmployees = [
 export function getEmployees() {
     return listEmployees;
 };
+
+export function save(employee) {
+    employee.id = listEmployees.length;
+    listEmployees.push(employee);
+}
 
 export function getEmployee(id) {
     return listEmployees.find(e => e.id.toString() === id);
