@@ -80,7 +80,7 @@ class EmployeeDetails extends Component {
                                 Is Active
                             </div>
                             <div className="col-xs-6">
-                                : {this.state.employee.isActive}
+                                : {this.state.employee.isActive.toString()}
                             </div>
                             </div>
                 
